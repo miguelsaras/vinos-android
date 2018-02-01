@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 Vinos v = null;
                 // v = new Vinos(2L," "," ", true," ", " " , 2, " ");
 
-
-                onVinoSeleccionado(v);
+                v =(Vinos)list.getAdapter().getItem(pos);
+                //onVinoSeleccionado(v);
+                Toast.makeText(getBaseContext(), v.getNombre().toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
     public interface VinosListener {
         void onVinoSeleccionado(Vinos v);
+
     }
 
 
