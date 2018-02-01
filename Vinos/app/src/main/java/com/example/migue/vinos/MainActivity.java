@@ -8,16 +8,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements OnItemClickListener {
 
     Button btnAñadir;
     Vinos[] vinos;
+    ListView lstVinos;
+    VinosListener listener;
 
 
     @Override
@@ -25,55 +29,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnAñadir = (Button) findViewById(R.id.btnAnadir);
+        //btnAñadir.setOnClickListener(this);
+
         MostrarLista();
+
+        lstVinos.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> list, View view, int pos, long id) {
+                Vinos v = null;
+                // v = new Vinos(2L," "," ", true," ", " " , 2, " ");
+
+
+                onVinoSeleccionado(v);
+            }
+        });
     }
 
+
+
+
+    public void onVinoSeleccionado(Vinos v){        //Si dejo este método sin argumentos, consigo que se abra la actividad, luego el método funciona, pero no conigo pasar un objeto como argumento
+        Intent i = new Intent(this, activity_anadir.class);  //rectifico, puedo mandarle un bjeto como argumento, pero no el objeto que está seleccionado en la lista
+
+        startActivity(i);
+    }
     @Override
     protected void onResume() {
         super.onResume();
         MostrarLista();
     }
 
+
+
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnAnadir:
-                startActivity(new Intent(this,activity_anadir.class));
-                break;
-           /* case R.id.btnObtener:
-                startActivity(new Intent(this,Activity_Obtener.class));
-                break;
-            case R.id.btnObtenerTodos:*/
-               // startActivity(new Intent(this,Activity_VerTodos.class));
-                //Para visualizar los datos en un Toast
-             /*   DBInterface dbInterface = new DBInterface(this);
-                dbInterface.abre();
-                Cursor c= dbInterface.obtenerContactos();
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // Movemos el cursor en la primera posición
-                if (c == null) {
-                    Toast.makeText(getBaseContext(), "Tabla vacía", Toast.LENGTH_LONG).show();
-                } else {
-                    String contactos = "";
-                    if (c.moveToFirst()) {
-                        do {
-                            contactos = contactos + "\n Nombre: " + c.getString(0) + " Email: " + c.getString(1);
-                            //  Mientras podamos pasar al siguiente contacto
-                        } while (c.moveToNext());
-                    }
-                    Toast.makeText(getBaseContext(), contactos, Toast.LENGTH_LONG).show();
-                }
-
-               dbInterface.cierra();*/
-              /*  break;
-            case R.id.btnActualizar:
-                startActivity(new Intent(this,Activity_Modificar.class));
-                break;
-            case R.id.btnBorrar:
-                startActivity(new Intent(this,Activity_Borrar.class));
-                break;*/
-        }
     }
+
+    public interface VinosListener {
+        void onVinoSeleccionado(Vinos v);
+    }
+
 
     public class Adaptador_Vinos extends ArrayAdapter<Vinos> {
 
@@ -119,10 +115,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     i++;
                 } while (c.moveToNext());
             }
-            ListView lstContactos = (ListView)findViewById(R.id.lstVinos);
+             lstVinos = (ListView)findViewById(R.id.lstVinos);
             final Adaptador_Vinos adaptador_contactos =
                     new Adaptador_Vinos(this, vinos);
-            lstContactos.setAdapter(adaptador_contactos);
+            lstVinos.setAdapter(adaptador_contactos);
 
         }
         dbInterface.cierra();
