@@ -3,22 +3,27 @@ package com.example.migue.vinos;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
-public class MainActivity extends AppCompatActivity implements OnItemClickListener {
+import static com.example.migue.vinos.R.id.btnAnadir;
+
+public class MainActivity extends AppCompatActivity implements  OnItemClickListener {
 
     Button btnAñadir;
+
     Vinos[] vinos;
     ListView lstVinos;
     VinosListener listener;
@@ -29,19 +34,36 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnAñadir = (Button) findViewById(R.id.btnAnadir);
-        //btnAñadir.setOnClickListener(this);
+
+
+        btnAñadir.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), activity_anadir.class);
+                i.putExtra("Opcion", "crear");
+                startActivity(i);
+            }
+        });
+
+
 
         MostrarLista();
 
         lstVinos.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> list, View view, int pos, long id) {
-                Vinos v = null;
-                // v = new Vinos(2L," "," ", true," ", " " , 2, " ");
+                Intent i = new Intent(getBaseContext(), activity_anadir.class);
+                    i.putExtra("Nombre", vinos[pos].getNombre().toString());
+                    i.putExtra("Denominacion", vinos[pos].getDenominacion().toString());
+                    i.putExtra("Tipo", vinos[pos].getTipo().toString());
+                    i.putExtra("Probado", vinos[pos].getProbado());
+                    i.putExtra("Rating", vinos[pos].getRating());
+                    i.putExtra("Opcion", "modificar");
+                    i.putExtra("Id", vinos[pos].getId());
+                startActivity(i);
+                //Toast.makeText(getBaseContext(), vinos[pos].getId().toString(), Toast.LENGTH_LONG).show();
 
-                v =(Vinos)list.getAdapter().getItem(pos);
-                //onVinoSeleccionado(v);
-                Toast.makeText(getBaseContext(), v.getNombre().toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -49,11 +71,19 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
 
 
-    public void onVinoSeleccionado(Vinos v){        //Si dejo este método sin argumentos, consigo que se abra la actividad, luego el método funciona, pero no conigo pasar un objeto como argumento
-        Intent i = new Intent(this, activity_anadir.class);  //rectifico, puedo mandarle un bjeto como argumento, pero no el objeto que está seleccionado en la lista
 
+    /*public void onVinoSeleccionado(Vinos v){        //Si dejo este método sin argumentos, consigo que se abra la actividad, luego el método funciona, pero no conigo pasar un objeto como argumento
+        Intent i = new Intent(this, activity_anadir.class);  //rectifico, puedo mandarle un bjeto como argumento, pero no el objeto que está seleccionado en la lista
+        i.putExtra("Nombre", v.getNombre());
+        i.putExtra("Denominacion", v.getDenominacion());
+        i.putExtra("Tipo", v.getTipo());
+        i.putExtra("Probado", true);
+        i.putExtra("Rating", v.getRating());
+        i.putExtra("Opcion", "modificar");
+        i.putExtra("Id", v.getId());
         startActivity(i);
-    }
+        Toast.makeText(getBaseContext(), v.getTipo(), Toast.LENGTH_LONG).show();
+    }*/
     @Override
     protected void onResume() {
         super.onResume();

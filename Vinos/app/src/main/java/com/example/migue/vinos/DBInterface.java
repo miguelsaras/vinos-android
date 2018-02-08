@@ -25,7 +25,7 @@ public class DBInterface {
 
     public static final String BD_NOMBRE = "BDVinos";
     public static final String BD_TABLA = "vinos";
-    public static final int VERSION = 2;
+    public static final int VERSION =1;
 
     public static final String BD_CREATE =
             "create table " + BD_TABLA + "(" + CAMPO_ID + " integer primary key autoincrement, "+

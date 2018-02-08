@@ -43,7 +43,7 @@ public class Vinos {
         this.denominacion = denominacion;
     }
 
-    public boolean isProbado() {
+    public boolean getProbado() {
         return probado;
     }
 
