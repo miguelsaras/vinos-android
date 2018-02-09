@@ -1,6 +1,7 @@
 package com.example.migue.vinos;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,8 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
     String opcion;
     long id;
 
+    Button btnSMS;
+
     DBInterface dbInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
         tinto = (RadioButton) findViewById(R.id.rbTinto);
         blanco = (RadioButton) findViewById(R.id.rbBlanco);
         rating = (RatingBar) findViewById(R.id.rbRating);
+        btnSMS = (Button) findViewById(R.id.btnSMS);
 
 
         Intent i = getIntent();
@@ -69,7 +73,13 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        btnSMS.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                selectContact();
+            }
+        });
 
 
 
@@ -113,6 +123,15 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
         super.onStop();
         dbInterface.cierra();
 
+    }
+    static final int REQUEST_SELECT_CONTACT = 1;
+    public void selectContact(){
+        Intent i = new Intent(Intent.ACTION_PICK);
+        //i.setType(ContactsContract.Contacts.CONTENT_TYPE);
+        i.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        if(i.resolveActivity(getPackageManager())!= null){
+            startActivityForResult(i, REQUEST_SELECT_CONTACT );
+        }
     }
 
 }
