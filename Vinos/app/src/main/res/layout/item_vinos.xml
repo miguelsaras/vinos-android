@@ -21,4 +21,10 @@
         android:textStyle="normal"
         android:textSize="12sp" />
 
+   <!-- <WebView
+        android:id="@+id/wvImagen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />-->
+
 </LinearLayout>

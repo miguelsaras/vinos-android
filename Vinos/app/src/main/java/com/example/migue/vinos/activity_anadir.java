@@ -18,6 +18,7 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
     EditText denominacion;
     CheckBox probado;
     RadioButton tinto;
+
     RadioButton blanco;
     RatingBar rating;
     String tipo = "";
@@ -53,7 +54,9 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
             if(tipo.equalsIgnoreCase("blanco")){
                 blanco.setChecked(true);
             }else if(tipo.equalsIgnoreCase("tinto")){tinto.setChecked(true);}
-            rating.setNumStars(i.getIntExtra("Rating", 0));
+            int starts = i.getIntExtra("Rating", 0);
+
+            rating.setRating(starts);
 
         }
 
@@ -67,11 +70,7 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
         });
 
 
-        if (tinto.isChecked()){
-            tipo = "Tinto";
-        }else if(blanco.isChecked()){
-            tipo="Blanco";
-        }
+
 
 
 
@@ -82,10 +81,16 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
 
     public void onClick(View v) {
 
+        if (tinto.isChecked()){
+            tipo = "Tinto";
+        }else if(blanco.isChecked()){
+            tipo="Blanco";
+        }
+
         if (opcion.equalsIgnoreCase("crear")){
         int contador = 0;
         try {
-            dbInterface.insertarContacto(nombre.getText().toString(), denominacion.getText().toString(), probado.isChecked(), tipo, "Descripcion", rating.getNumStars(), "Imagen");
+            dbInterface.insertarContacto(nombre.getText().toString(), denominacion.getText().toString(), probado.isChecked(), tipo, "Descripcion", (int)rating.getRating(), "Imagen");
         }catch(Exception e){
             Toast.makeText(getBaseContext(),"ERROR : en la inserción", Toast.LENGTH_LONG).show();
             contador++;
@@ -96,7 +101,7 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
      //   public long modificaContacto(long id,String nombre, String denominacion, boolean probado, String tipo, String descripcion,int rating, String imagen)
         if (opcion.equalsIgnoreCase("modificar")){
             try {
-                dbInterface.modificaContacto(id, nombre.getText().toString(), denominacion.getText().toString(), probado.isChecked(), tipo, "Descripcion", rating.getNumStars(), "Imagen");
+                dbInterface.modificaContacto(id, nombre.getText().toString(), denominacion.getText().toString(), probado.isChecked(), tipo, "Descripcion", (int)rating.getRating(), "Imagen");
             }catch(Exception e){
                 Toast.makeText(getBaseContext(),"ERROR : en la modificación", Toast.LENGTH_LONG).show();
             }

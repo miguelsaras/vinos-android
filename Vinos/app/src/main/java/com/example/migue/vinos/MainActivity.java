@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 
 import android.widget.AdapterView.OnItemClickListener;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements  OnItemClickListe
     VinosListener listener;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements  OnItemClickListe
             }
         });
 
+        lstVinos = (ListView)findViewById(R.id.lstVinos);
 
 
         MostrarLista();
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements  OnItemClickListe
 
             }
         });
+
     }
 
 
@@ -116,7 +120,8 @@ public class MainActivity extends AppCompatActivity implements  OnItemClickListe
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.item_vinos, null);
 
-
+           /* WebView imagen = (WebView) findViewById(R.id.wvImagen) ;
+            imagen.loadUrl("https://image.flaticon.com/icons/svg/27/27398.svg");*/
             TextView lblID = (TextView)item.findViewById(R.id.LblId);
             lblID.setText(datos[position].getId().toString());
             TextView lblNombre = (TextView)item.findViewById(R.id.LblNombre);
