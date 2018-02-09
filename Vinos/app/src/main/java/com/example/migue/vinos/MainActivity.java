@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity implements  OnItemClickListe
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.item_vinos, null);
 
-           /* WebView imagen = (WebView) findViewById(R.id.wvImagen) ;
-            imagen.loadUrl("https://image.flaticon.com/icons/svg/27/27398.svg");*/
+            WebView imagen = (WebView) item.findViewById(R.id.wvImagen) ;
+            imagen.loadUrl("https://data.promoqui.it/categories/icons/000/014/996/normal/vino.png?1385057447");
             TextView lblID = (TextView)item.findViewById(R.id.LblId);
             lblID.setText(datos[position].getId().toString());
             TextView lblNombre = (TextView)item.findViewById(R.id.LblNombre);
