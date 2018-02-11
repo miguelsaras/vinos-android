@@ -53,7 +53,7 @@ public class DBInterface {
         ayuda.close();
     }
 
-    public long insertarContacto(String nombre, String denominacion, boolean probado, String tipo, String descripcion,int rating, String imagen)
+    public long insertarVino(String nombre, String denominacion, boolean probado, String tipo, String descripcion, int rating, String imagen)
     {
         ContentValues initialValues = new ContentValues ();
         initialValues.put(CAMPO_NOMBRE, nombre);
@@ -67,7 +67,7 @@ public class DBInterface {
 
         return bd.insert(BD_TABLA, null, initialValues);
     }
-    public long modificaContacto(long id,String nombre, String denominacion, boolean probado, String tipo, String descripcion,int rating, String imagen)
+    public long modificaVino(long id, String nombre, String denominacion, boolean probado, String tipo, String descripcion, int rating, String imagen)
     {
         ContentValues newValues = new ContentValues ();
         newValues.put(CAMPO_NOMBRE, nombre);

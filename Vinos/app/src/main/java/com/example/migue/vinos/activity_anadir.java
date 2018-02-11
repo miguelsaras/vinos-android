@@ -70,6 +70,7 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
             public void onClick(View v) {
               dbInterface.borrarContacto(id);
                 Toast.makeText(getBaseContext(), "Se ha borrado correctamente", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
 
@@ -100,22 +101,24 @@ public class activity_anadir extends AppCompatActivity implements View.OnClickLi
         if (opcion.equalsIgnoreCase("crear")){
         int contador = 0;
         try {
-            dbInterface.insertarContacto(nombre.getText().toString(), denominacion.getText().toString(), probado.isChecked(), tipo, "Descripcion", (int)rating.getRating(), "Imagen");
+            dbInterface.insertarVino(nombre.getText().toString(), denominacion.getText().toString(), probado.isChecked(), tipo, "Descripcion", (int)rating.getRating(), "Imagen");
         }catch(Exception e){
             Toast.makeText(getBaseContext(),"ERROR : en la inserción", Toast.LENGTH_LONG).show();
             contador++;
         }
         if(contador==0){
         Toast.makeText(getBaseContext(),"Se ha insertado correctamente", Toast.LENGTH_LONG).show();}}
+        finish();
 
-     //   public long modificaContacto(long id,String nombre, String denominacion, boolean probado, String tipo, String descripcion,int rating, String imagen)
+     //   public long modificaVino(long id,String nombre, String denominacion, boolean probado, String tipo, String descripcion,int rating, String imagen)
         if (opcion.equalsIgnoreCase("modificar")){
             try {
-                dbInterface.modificaContacto(id, nombre.getText().toString(), denominacion.getText().toString(), probado.isChecked(), tipo, "Descripcion", (int)rating.getRating(), "Imagen");
+                dbInterface.modificaVino(id, nombre.getText().toString(), denominacion.getText().toString(), probado.isChecked(), tipo, "Descripcion", (int)rating.getRating(), "Imagen");
             }catch(Exception e){
                 Toast.makeText(getBaseContext(),"ERROR : en la modificación", Toast.LENGTH_LONG).show();
             }
             Toast.makeText(getBaseContext(),"Se ha modificado correctamente", Toast.LENGTH_LONG).show();
+            finish();
         }
     }
     @Override
